@@ -7,24 +7,82 @@ class dynArray
         int capacity;
         int lastIndex;
         int* ptr;
-    protected:
-        bool isFull();
     public:
         dynArray();
         dynArray(int);
+        dynArray(dynArray&);
+        void operator=(dynArray&);
         void doubleArray();
         void halfArray();
         int capArray();
         bool isEmpty();
+        bool isFull();
         void append(int);
         void insert(int,int);
         void edit(int,int);
         void deleteElement(int);
         void showData();
+        int getElement(int);
+        int countElement();
+        int findElement(int);
+        ~dynArray();
 };
+void dynArray :: operator=(dynArray &a)
+{
+    capacity=a.capacity;
+    lastIndex=a.lastIndex;
+    ptr=new int[capacity];
+    if(!a.isEmpty())
+        for(int i=0;i<=lastIndex;i++)
+            ptr[i]=a.ptr[i];
+}
+dynArray :: dynArray(dynArray &a)
+{
+    capacity=a.capacity;
+    lastIndex=a.lastIndex;
+    ptr=new int[capacity];
+    if(!a.isEmpty())
+        for(int i=0;i<=lastIndex;i++)
+            ptr[i]=a.ptr[i];
+}
+dynArray :: ~dynArray()
+{
+    delete ptr;
+}
+int dynArray :: findElement(int data)
+{
+    if(!isEmpty())
+    {
+        for(int i=0;i<=lastIndex;i++)
+            if(ptr[i]==data)
+                return i;
+    }
+    return -1;
+}
+int dynArray :: countElement()
+{
+    return lastIndex+1;
+}
+int dynArray :: getElement(int index)
+{
+    if(!isEmpty() && index>=0 && index<=lastIndex)
+    {
+        return ptr[index];
+    }
+    return -1;
+}
 void dynArray :: deleteElement(int index)
 {
-    
+    if(!isEmpty() && index>=0 && index<=lastIndex)
+    {
+        for(int i=index;i<lastIndex;i++)
+            ptr[i]=ptr[i+1];
+        lastIndex--;
+        if(lastIndex<capacity/2)
+            halfArray();
+    }
+    else
+        cout<<"Array underflow or Wrong index!";
 }
 void dynArray :: edit(int data,int index)
 {
@@ -131,6 +189,9 @@ int main()
     dynArray A;
     A.append(10);
     A.append(20);
+    A.append(30);
+    A.append(40);
+    A.append(50);
     A.showData();
     cout<<A.capArray();
     return 0;
