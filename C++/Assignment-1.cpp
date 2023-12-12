@@ -22,8 +22,36 @@ class array
         int* arrayAddress();
         int sizeOfArray();
         void showData();
+        array(array&);
+        void operator=(array&);
         ~array();
 };
+void array :: operator=(array &a)
+{
+    capacity=a.capacity;
+    lastIndex=a.lastIndex;
+    ptr = new int[capacity];
+    if(!a.isEmpty())
+    {
+        for(int i=0;i<=lastIndex;i++)
+            ptr[i]=a.ptr[i];
+    }
+    else
+        cout<<"Array underflow!";
+}
+array :: array(array &a)
+{
+    capacity=a.capacity;
+    lastIndex=a.lastIndex;
+    ptr = new int[capacity];
+    if(!a.isEmpty())
+    {
+        for(int i=0;i<=lastIndex;i++)
+            ptr[i]=a.ptr[i];
+    }
+    else
+        cout<<"Array underflow!";
+}
 array :: ~array()
 {
     delete ptr;
@@ -200,7 +228,7 @@ int sumAllElement(array &a)     // sum of all element
     else
         return -1;
 }
-int avgAllElement(array &a)     // sum of all element
+int avgAllElement(array &a)     // avg of all element
 {
     return (float)sumAllElement(a)/a.countElement();
 }
@@ -242,16 +270,14 @@ void removeDublicate(array &a)
 }
 int main()
 {
-    array A(5);
+    array A(5),a(5);
     A.append(20);
     A.append(30);
     A.append(40);
     A.append(50);
     A.append(60);
-    A.showData();
-    removeDublicate(A);
-    cout<<endl;
-    A.showData();
+    a=A;
+    a.showData();
     cout<<endl;
     return 0;
 }
