@@ -1,5 +1,6 @@
 #include<iostream>
 #include<stdio.h>
+#include<conio.h>
 
 using namespace std;
 struct node
@@ -22,8 +23,28 @@ class SLL
         void deleteAfter(node*);
         ~SLL();   
 
-        SLL(SLL&);     
+        SLL(SLL&); 
+        void operator=(SLL &);    
 };
+void SLL :: operator=(SLL &S)
+{
+    node* t;
+    if(S.start!=NULL)
+    {
+        t=S.start;
+        while(t)
+        {
+            node*n = new node;
+            n->item=t->item;
+            if(start==NULL)
+                n->next=NULL;
+            else
+                n->next=start;
+            start=n;
+            t=t->next;
+        }
+    }
+}
 SLL :: SLL(SLL &S)
 {
     node* t;
@@ -32,7 +53,13 @@ SLL :: SLL(SLL &S)
         t=S.start;
         while(t)
         {
-            insertAtStart(t->item);
+            node*n = new node;
+            n->item=t->item;
+            if(start==NULL)
+                n->next=NULL;
+            else
+                n->next=start;
+            start=n;
             t=t->next;
         }
     }
@@ -140,19 +167,19 @@ void SLL :: insertAtStart(int data)
 }
 SLL :: SLL()
 {
-    start=nullptr;
+    start=nullptr; 
 }
 
 int main()
 {
-    SLL s,S=s;
+    SLL s;
     node* t;
     s.insertAtStart(10);
     s.insertAtEnd(20);
     s.insertAtAfter(s.search(10),30);
-    s.deleteFirst();
+    SLL S=s;
     t=S.search(10);
     cout<<endl<<t->item;
-
+    getch();
     return 0;
 }
