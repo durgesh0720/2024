@@ -20,8 +20,28 @@ class SLL
         void deleteFirst();
         void deleteLast();
         void deleteAfter(node*);
-        
+        ~SLL();   
+
+        SLL(SLL&);     
 };
+SLL :: SLL(SLL &S)
+{
+    node* t;
+    if(S.start!=NULL)
+    {
+        t=S.start;
+        while(t)
+        {
+            insertAtStart(t->item);
+            t=t->next;
+        }
+    }
+}
+SLL :: ~SLL()
+{
+    while(start)
+        deleteFirst();
+}
 void SLL :: deleteAfter(node* temp)
 {
     node* t;
@@ -125,13 +145,13 @@ SLL :: SLL()
 
 int main()
 {
-    SLL s;
+    SLL s,S=s;
     node* t;
     s.insertAtStart(10);
     s.insertAtEnd(20);
     s.insertAtAfter(s.search(10),30);
     s.deleteFirst();
-    t=s.search(10);
+    t=S.search(10);
     cout<<endl<<t->item;
 
     return 0;
