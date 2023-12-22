@@ -22,10 +22,19 @@ class SLL
         void deleteLast();
         void deleteAfter(node*);
         ~SLL();   
-
+        void showdata();
         SLL(SLL&); 
         void operator=(SLL &);    
 };
+void SLL :: showdata()
+{
+    node* t=start;
+    while(t)
+    {
+        cout<<" "<<t->item;
+        t=t->next;
+    };
+}
 void SLL :: operator=(SLL &S)
 {
     node* t;
@@ -90,11 +99,10 @@ void SLL :: deleteLast()
             start=nullptr;
         else
         {
-            while(t->next!=nullptr)
+            while(t->next->next)
                 t=t->next;
             r=t->next;
-            t->next=nullptr;
-            t=r;
+            t->next=NULL;
         }
         delete t;
     }
@@ -172,14 +180,13 @@ SLL :: SLL()
 
 int main()
 {
-    SLL s;
+    SLL s,s1;
     node* t;
     s.insertAtStart(10);
-    s.insertAtEnd(20);
-    s.insertAtAfter(s.search(10),30);
     SLL S=s;
-    t=S.search(10);
-    cout<<endl<<t->item;
+    s.showdata();
+    s1=s;
+    s1.showdata();
     getch();
     return 0;
 }
