@@ -24,8 +24,43 @@ class SLL
         ~SLL();   
         void showdata();
         SLL(SLL&); 
-        void operator=(SLL &);    
+        void operator=(SLL &);  
+
+        int count(); 
+        void reverseNode(); 
 };
+void SLL :: reverseNode()
+{
+    node* t1,*t2,*t3;
+    if(start)
+    {
+        t1=start;
+        while(t1)
+        {
+            t2=t1;
+            if(t2->next)
+            {
+                
+            }
+            t1=t1->next;
+        }
+    }
+}
+int SLL :: count()
+{
+    node* t;
+    int i=0;
+    if(start)
+    {
+        t=start;
+        while(t)
+        {
+            i++;
+            t=t->next;
+        }
+    }
+    return i;
+}
 void SLL :: showdata()
 {
     node* t=start;
