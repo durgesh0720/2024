@@ -13,36 +13,37 @@ class heap
 };
 void heap :: showdata()
 {
-    for(int i=0;i<=lastIndex;i++)
+    for(int i=0;i<lastIndex;++i)
         cout<<" "<<ptr[i];
 }
 void heap :: insert(int data)
 {
-    int t1=1,t2,r=lastIndex;
+    int parant,node=lastIndex;
     if(lastIndex < capacity-1)
     {
         if(lastIndex==0)
         {
             ptr[lastIndex]=data;
+            lastIndex++;
         }
         else
         {
-            ptr[r]=data;
-            while(r<0)
+            ptr[node]=data;
+            while(node)
             {
-                t1=(r-1)/2;
-                if(ptr[t1]<data)
+                parant=(node-1)/2;
+                if(ptr[parant]<ptr[node])
                 {
-                    t2=ptr[t1];
-                    ptr[t1]=ptr[r];;
-                    ptr[r]=t2;
-                    r=t1;
+                    ptr[node]=ptr[parant];
+                    ptr[parant]=data;
+                    node=parant;
                 }
                 else
                     break;                
             }
+            lastIndex++;
         }
-        lastIndex++;
+        
     }
 }
 heap :: heap(int size)
@@ -53,9 +54,15 @@ heap :: heap(int size)
 }
 int main()
 {
-    heap h(5);
-    h.insert(60);
+    heap h(8);
     h.insert(50);
+    h.insert(20);
+    h.insert(80);
+    h.insert(70);
+	h.insert(60);
+	h.insert(30);
+	h.insert(90);
+	h.insert(40);
     h.showdata();
     return 0;
 }
